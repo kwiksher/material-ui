@@ -690,10 +690,14 @@ function M.removeToggleSwitch(widgetName)
 
     muiData.widgetDict[widgetName]["group"]["circle"]:removeSelf()
     muiData.widgetDict[widgetName]["group"]["circle"] = nil
+    if muiData.widgetDict[widgetName]["group"]["circle"] then
     muiData.widgetDict[widgetName]["group"]["circle2"]:removeSelf()
     muiData.widgetDict[widgetName]["group"]["circle2"] = nil
+    end
+    if muiData.widgetDict[widgetName]["group"]["circle1"] then
     muiData.widgetDict[widgetName]["group"]["circle1"]:removeSelf()
     muiData.widgetDict[widgetName]["group"]["circle1"] = nil
+    end
     muiData.widgetDict[widgetName]["group"]["rect"]:removeSelf()
     muiData.widgetDict[widgetName]["group"]["rect"] = nil
     muiData.widgetDict[widgetName]["group"]["rectmaster"]:removeEventListener("touch", M.toggleSwitchTouch)

@@ -871,7 +871,7 @@ function M.newIconButton(options)
     end
 
     local textColor = { 0, 0.82, 1 }
-    if options.state.off.textColor ~= nil then
+    if options.sate and options.state.off.textColor ~= nil then
         textColor = options.state.off.textColor
     end
 
@@ -909,7 +909,7 @@ function M.newIconButton(options)
         tw = fontSize
     end
 
-    if options.svg ~= nil or options.state.image ~= nil then
+    if options.svg ~= nil or (options.state and options.state.image ~= nil) then
         tw = textToMeasure.contentWidth
         th = textToMeasure.contentHeight
     end
@@ -918,14 +918,14 @@ function M.newIconButton(options)
     textToMeasure = nil
 
     -- create image buttons if exist
-    if options.state.image ~= nil then
+    if options.state and options.state.image ~= nil then
         muiData.widgetDict[options.name]["rrect"] = display.newRect( 0, 0, options.width, options.height )
         muiData.widgetDict[options.name]["group"]:insert( muiData.widgetDict[options.name]["rrect"] )
         options.image = options.state.image
         M.createButtonsFromList(options, muiData.widgetDict[options.name]["rrect"], "group")
     end
 
-    if options.state.off.svg == nil and options.state.image == nil then
+    if options.state and options.state.off.svg == nil and options.state.image == nil then
         local options2 =
         {
             --parent = textGroup,
@@ -1629,12 +1629,12 @@ function M.newCircleButton(options)
     end
 
     local textColor = { 0, 0.82, 1 }
-    if options.state.off.textColor ~= nil then
+    if options.state and options.state.off.textColor ~= nil then
         textColor = options.state.off.textColor
     end
 
     local fillColor = { 0, 0, 0 }
-    if options.state.off.fillColor ~= nil then
+    if options.state and options.state.off.fillColor ~= nil then
         fillColor = options.state.off.fillColor
     end
 
@@ -1699,14 +1699,18 @@ function M.newCircleButton(options)
     }
 
     muiData.widgetDict[options.name]["circlemain"] = display.newCircle( 0, 0, radius )
+    if options.state then
     muiData.widgetDict[options.name]["circlemain"]:setFillColor( unpack(options.state.off.fillColor) )
+    end
     muiData.widgetDict[options.name]["circlemain"].isVisible = true
     muiData.widgetDict[options.name]["group"]:insert( muiData.widgetDict[options.name]["circlemain"], true )
 
     -- create image buttons if exist
+    if options.state then
     M.createButtonsFromList({ name = options.name, image=options.state.image }, muiData.widgetDict[options.name]["circlemain"], "group")
+    end
 
-    if options.state.off.svg ~= nil and type(options.state.off.svg) == "table" and options.state.image == nil then
+    if options.state and options.state.off.svg ~= nil and type(options.state.off.svg) == "table" and options.state.image == nil then
        local params = {
             {
                 name = "text",
@@ -1743,9 +1747,9 @@ function M.newCircleButton(options)
                 muiData.widgetDict[options.name]["group"]:insert( muiData.widgetDict[options.name][v.name], false )
             end
         end
-    elseif options.state.image == nil then
+    elseif options.state == nil or options.state.image == nil then
         muiData.widgetDict[options.name]["text"] = display.newText( options2 )
-        muiData.widgetDict[options.name]["text"]:setFillColor( unpack(options.state.off.textColor) )
+        --muiData.widgetDict[options.name]["text"]:setFillColor( unpack(options.state.off.textColor) )
         muiData.widgetDict[options.name]["group"]:insert( muiData.widgetDict[options.name]["text"], false )
         muiData.widgetDict[options.name]["text"].isVisible = true
     end
@@ -1776,13 +1780,14 @@ function M.newCircleButton(options)
     if options.ignoreTap then
         muiData.widgetDict[options.name]["circlemain"]:addEventListener("tap", function() return true end)
     end
-
+    if options.state then
     if options.state.value == "off" then
         M.turnOffButton( options )
     elseif options.state.value == "on" then
         M.turnOnButton( options )
     elseif options.state.value == "disabled" then
         M.disableButton( options )
+        end
     end
 end
 

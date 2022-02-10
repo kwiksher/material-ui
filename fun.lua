@@ -40,7 +40,7 @@ function scene:create( event )
 
 	local sceneGroup = self.view
 
-    mui.init()
+    mui.init(nil, {parent = self.view, useSvg = true})
 
     -- Gather insets (function returns these in the order of top, left, bottom, right)
     local topInset, leftInset, bottomInset, rightInset = mui.getSafeAreaInsets()
@@ -71,6 +71,24 @@ function scene:create( event )
         iconFontColor = { 1, 1, 1, 1 },
         -- iconImage = "1484026171_02.png",
         callBack = mui.actionSwitchScene,
+        state = {
+            value = "off",
+            off = {
+                textColor = {1, 1, 1},
+                fillColor = {0, 0.81, 1}
+                --svg = {path = "ic_view_list_48px.svg"}
+            },
+            on = {
+                textColor = {1, 1, 1},
+                fillColor = {0, 0.61, 1}
+                --svg = {path = "ic_help_48px.svg"}
+            },
+            disabled = {
+                textColor = {1, 1, 1},
+                fillColor = {.3, .3, .3}
+                --svg = {path = "ic_help_48px.svg"}
+            }
+        },
         callBackData = {
             sceneDestination = "menu",
             sceneTransitionColor = { 0, 0.73, 1 },
@@ -109,6 +127,24 @@ function scene:create( event )
         textColor = { 1, 1, 1, 1 },
         fillColor = { 0.63, 0.81, 0.181 },
         radius = 10,
+        state = {
+            value = "off",
+            off = {
+                textColor = {1, 1, 1},
+                fillColor = {0, 0.81, 1}
+                --svg = {path = "ic_view_list_48px.svg"}
+            },
+            on = {
+                textColor = {1, 1, 1},
+                fillColor = {0, 0.61, 1}
+                --svg = {path = "ic_help_48px.svg"}
+            },
+            disabled = {
+                textColor = {1, 1, 1},
+                fillColor = {.3, .3, .3}
+                --svg = {path = "ic_help_48px.svg"}
+            }
+        },
         callBack = showToast
     })
 
@@ -138,7 +174,57 @@ function scene:create( event )
         colorOff = { 1, 1, 1, 1 },
         color = { 0.63, 0.81, 0.181 },
         startPercent = 30,
-        callBackMove = mui.sliderCallBackMove,
+        enlargeHandle = false, -- the part that is dragged around
+        background = {
+            color = { 0.7,.7,.7,0.05}
+        },
+        state = {
+            value = "off"
+        },
+        handle = {
+            off = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                -- image = "knob-gfx.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            },
+            on = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                -- image = "knob-gfx-on.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            },
+            disabled = {
+                color = { .3,.3,.3 },
+                strokeColor = { .3,.3,.3 },
+                -- image = "knob-gfx-disabled.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            }
+        },
+        bar = {
+            off = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx-base.png"
+            },
+            on = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx-base.png"
+            },
+            disabled = {
+                color = { .3,.3,.3 },
+                strokeColor = { .3,.3,.3 },
+                image = "knob-gfx-base.png"
+            }
+        },
+        callBackMove = sliderCallBackMove,
         callBack = mui.sliderCallBack
     })
 
@@ -150,9 +236,59 @@ function scene:create( event )
         y = 300,
         radius = 12,
         colorOff = { 1, 1, 1, 1 },
-        color = { 0.31, 0.65, 0.03, 1 },
-        startPercent = 60,
-        callBackMove = mui.sliderCallBackMove,
+        color = { 0.63, 0.81, 0.181 },
+        startPercent = 30,
+        enlargeHandle = false, -- the part that is dragged around
+        xbackground = {
+            color = { 0.7,.7,.7,0.05}
+        },
+        state = {
+            value = "off"
+        },
+        handle = {
+            off = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            },
+            on = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx-on.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            },
+            disabled = {
+                color = { .3,.3,.3 },
+                strokeColor = { .3,.3,.3 },
+                ximage = "knob-gfx-disabled.png",
+                svg = {
+                    path = "simple-circle.svg"
+                }
+            }
+        },
+        bar = {
+            off = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx-base.png"
+            },
+            on = {
+                color = { 0.63, 0.81, 0.181 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                image = "knob-gfx-base.png"
+            },
+            disabled = {
+                color = { .3,.3,.3 },
+                strokeColor = { .3,.3,.3 },
+                image = "knob-gfx-base.png"
+            }
+        },
+        callBackMove = sliderCallBackMove,
         callBack = mui.sliderCallBack
     })
     --]]--
@@ -203,6 +339,22 @@ function scene:create( event )
         isSecure = true
     })
 
+    mui.newTextField({
+        name = "textfield_demo4",
+        labelText = "My Topic",
+        text = "Hello, World!",
+        font = native.systemFont,
+        width = 200,
+        height = 30,
+        x = 120,
+        y = 220,
+        activeColor = { 0.12, 0.67, 0.27, 1 },
+        inactiveColor = { 0.4, 0.4, 0.4, 1 },
+        callBack = mui.textfieldCallBack,
+        scrollView = scrollView
+    })
+
+    -- create a drop down list
     -- create a drop down list
     local numOfRowsToShow = 3
     mui.newSelect({
@@ -212,18 +364,19 @@ function scene:create( event )
         font = native.systemFont,
         textColor = { 0.4, 0.4, 0.4 },
         fieldBackgroundColor = { 1, 1, 1, 1 },
-        rowColor = { default={ 1, 1, 1, 1 }, over={ 1, 0.5, 0, 0.2 } }, -- default is the highlighting
+        rowColor = { default={ 1, 1, 1, 1 }, over={ 1, 0.5, 0, 0.2 } }, -- 0.01 = transparent -- default is the highlighting
         rowBackgroundColor = { 1, 1, 1, 1 }, -- the drop down color of each row
         touchpointColor = { 0.4, 0.4, 0.4 }, -- the touchpoint color
         activeColor = { 0.12, 0.67, 0.27, 1 },
         inactiveColor = { 0.4, 0.4, 0.4, 1 },
         strokeColor = { 0.4, 0.4, 0.4, 1 },
         strokeWidth = 2,
-        width = 200,
+        hideBackground = true,
+        width = 210,
         height = 30,
         listHeight = 30 * numOfRowsToShow,
         x = 120,
-        y = 240,
+        y = 200,
         callBackTouch = mui.onRowTouchSelector,
         scrollListener = nil,
         list = { -- if 'key' use it for 'id' in the table row
@@ -237,7 +390,52 @@ function scene:create( event )
             { key = "Row8", text = "Shake 5", value = "Shake 5", isCategory = false },
             { key = "Row9", text = "Shake 6", value = "Shake 6", isCategory = false },
         },
-        scrollView = scrollView,
+        state = {
+            value = "off",
+            disabled = {
+                fieldBackgroundColor = { .7,.7,.7,1 },
+                callBack = buttonMessage,
+                callBackData = {message = "button is disabled"}
+            }
+        },
+        arrow = {
+            off = {
+                color = { 0.4, 0.4, 0.4 },
+                image = "arrow-down.png",
+                xsvg = {
+                    fillColor = { .5, .12, .5, 1 },
+                    path = "arrow-down.svg"
+                }
+            },
+            disabled = {
+                color = { 0.4, 0.4, 0.4 },
+                image = "arrow-down.png",
+                xsvg = {
+                    fillColor = { .3, .3, .3, 1 },
+                    path = "arrow-down.svg"
+                }
+            }
+        },
+        backgroundFake = {
+            off = {
+                image = "TextBackground.jpg",
+                xsvg = {
+                    path = "jigsaw.svg"
+                }
+            },
+            disabled = {
+                image = "TextBackground-disabled.jpg",
+                xsvg = {
+                    path = "jigsaw.svg"
+                }
+            }
+        },  
+        background = {
+            image = "TextBackground.jpg",
+            xsvg = {
+                path = "jigsaw.svg"
+            }
+        },  
     })
 
     --[[--
@@ -259,8 +457,8 @@ function scene:create( event )
         textBoxFontSize = 16,
         width = 200,
         height = 100,
-        x = 120,
-        y = 355,
+        x = 550,
+        y = 120,
         trimFakeTextAt = 80, -- trim at 1..79 characters.
         activeColor = { 0.12, 0.67, 0.27, 1 },
         inactiveColor = { 0.4, 0.4, 0.4, 1 },
@@ -280,21 +478,53 @@ function scene:create( event )
         overlayBackgroundColor = { 1, 1, 1, 1 },
         overlayTextBoxBackgroundColor = { .9, .9, .9, 1 },
         overlayTextBoxHeight = 100,
-        scrollView = scrollView
+        scrollView = scrollView,
+        state = {
+            value = "off",
+            disabled = {
+                fieldBackgroundColor = { .7,.7,.7,1 },
+                callBack = buttonMessage,
+                callBackData = {message = "button is disabled"}
+            }
+        },
+        backgroundFake = {
+            off = {
+                image = "TextBackground.jpg",
+                xsvg = {
+                    path = "jigsaw.svg"
+                }
+            },
+            disabled = {
+                image = "TextBackground-disabled.jpg",
+                xsvg = {
+                    path = "jigsaw.svg"
+                }
+            }
+        },  
+        background = {
+            image = "TextBackground.jpg",
+            xsvg = {
+                path = "jigsaw.svg"
+            }
+        }
     })
 
     -- mui.setTextBoxValue("textbox_demo1", "toys in store")
-    --[[--
+    ---[[--
 
     mui.newTextField({
         name = "textfield_demo5",
         labelText = "Numbers Only",
         text = "12345",
         font = native.systemFont,
-        width = mui.getScaleVal(400),
-        height = mui.getScaleVal(46),
-        x = mui.getScaleVal(240),
-        y = mui.getScaleVal(530),
+        -- width = mui.getScaleVal(400),
+        -- height = mui.getScaleVal(46),
+        -- x = mui.getScaleVal(240),
+        -- y = mui.getScaleVal(530),
+        width = 200,
+        height = 30,
+        x = 120,
+        y = 300,
         activeColor = { 0.12, 0.67, 0.27, 1 },
         inactiveColor = { 0.4, 0.4, 0.4, 1 },
         callBack = mui.textfieldCallBack,
@@ -361,7 +591,8 @@ function scene:create( event )
     -- supported widget types are : "RRectButton", "RectButton", "IconButton", "Slider", "TextField"
     mui.newNavbar({
         name = "navbar_demo",
-        --width = mui.getScaleVal(500), -- defaults to display.contentWidth
+        --width = display.contentWidth,
+        background = "Vqjr2iR.jpg",
         height = 40,
         left = 0,
         top = 0,
@@ -377,10 +608,19 @@ function scene:create( event )
         x = 0,
         y = 0,
         font = mui.materialFont,
-        textColor = { 1, 1, 1 },
+        state = {
+            off = {
+                textColor = { 1, 1, 1 }
+            },
+            on = {
+                textColor = { 1, 1, 1 }
+            }
+        },
         textAlign = "center",
         callBack = showSlidePanel2
     })
+
+    
     mui.attachToNavBar( "navbar_demo", {
         widgetName = "menu",
         widgetType = "IconButton",
@@ -395,6 +635,14 @@ function scene:create( event )
         y = 0,
         font = mui.materialFont,
         textColor = { 1, 1, 1 },
+        state = {
+            off = {
+                textColor = { 1, 1, 1 }
+            },
+            on = {
+                textColor = { 1, 1, 1 }
+            }
+        },
         textAlign = "center",
         callBack = mui.actionForButton
     })
@@ -412,7 +660,7 @@ function scene:create( event )
         height = 30,
         x = 0,
         y = 0,
-        activeColor = { 1, 1, 1, 1 },
+        activeColor = { 0, 1, 1, 1 },
         inactiveColor = { 1, 1, 1, 0.8 },
         fillColor = { 0.63, 0.81, 0.181 },
         callBack = mui.textfieldCallBack
@@ -431,6 +679,14 @@ function scene:create( event )
         y = 0,
         font = mui.materialFont,
         textColor = { 1, 1, 1 },
+        state = {
+            off = {
+                textColor = { 1, 1, 1 }
+            },
+            on = {
+                textColor = { 1, 1, 1 }
+            }
+        },
         textAlign = "center",
         callBack = mui.actionForButton
     })

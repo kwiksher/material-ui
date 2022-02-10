@@ -39,7 +39,7 @@ function scene:create( event )
 
     display.setDefault("background", 1, 1, 1)
 
-    mui.init(nil, { parent=self.view })
+    mui.init(nil, {parent = self.view, useSvg = true})
 
     -- Gather insets (function returns these in the order of top, left, bottom, right)
     local topInset, leftInset, bottomInset, rightInset = mui.getSafeAreaInsets()
@@ -65,11 +65,29 @@ function scene:create( event )
         isFontIcon = true,
         font = mui.materialFont,
         textColor = { 0.25, 0.75, 1, 1 },
+        state = {
+            value = "on", -- specify the state to be in when button is created
+            off = {
+                textColor = {0.25, 0.75, 1, 1},
+                callBack = buttonMessage,
+                callBackData = {message = "button is turned off"},
+            },
+            on = {
+                textColor = {1, 0, 0, 1},
+                callBack = buttonMessage,
+                callBackData = {message = "button is turned on"},
+            },
+            disabled = {
+                textColor = {0.7, 0.7, 0.7, 1},
+                callBack = buttonMessage,
+                callBackData = {message = "button is disabled"},
+            }
+        },
         callBack = mui.actionSwitchScene,
         callBackData = {
             sceneDestination = "onboard",
             sceneTransitionColor = { 0.08, 0.9, 0.31 }
-        } -- scene fun.lua
+        }, -- scene fun.lua
         -- callBack = mui.actionForPlus
     })
 
@@ -85,6 +103,20 @@ function scene:create( event )
         labelFont = native.systemFont,
         textColor = { 0, 0, 0 },
         labelColor = { 0, 0, 0 },
+        state = {
+            value = "off",
+            off = {
+                textColor = {0, 0, 0},
+                labelColor = {0, 0, 0},
+            },
+            on = {
+                textColor = {1, 0, 0},
+                labelColor = {1, 0, 0},
+            },
+            disabled = {
+                textColor = {.3, .3, .3},
+                labelColor = {.3, .3, .3},
+        }},
         callBack = mui.actionForRadioButton,
         list = {
             { key = "Cookie", value = "1", isChecked = false },
@@ -110,6 +142,30 @@ function scene:create( event )
         iconFontColor = { 1, 1, 1, 1 },
         --iconImage = "1484026171_02.png",
         touchpoint = true,
+        state = {
+            value = "on",
+            off = {
+                textColor = {1, 1, 1},
+                fillColor = {0.25, 0.75, 1, 1},
+                iconFontColor = {1, 1, 1, 1},
+                iconText = "picture_in_picture",
+                -- iconImage = "1484026171_02.png",
+            },
+            on = {
+                textColor = {1, 1, 1},
+                fillColor = {1, 0, 0, 1},
+                iconFontColor = {1, 1, 1, 1},
+                iconText = "picture_in_picture",
+                -- iconImage = "1484022678_go-home.png",
+            },
+            disabled = {
+                textColor = {1,1,1,1},
+                fillColor = {0.7, 0.7, 0.7, 1},
+                iconFontColor = {1, 1, 1, 1},
+                iconText = "picture_in_picture",
+                -- iconImage = "1484022678_go-home.png",
+            },
+        },
         callBack = mui.actionSwitchScene,
         callBackData = {
             sceneDestination = "fun",
@@ -196,8 +252,8 @@ function scene:create( event )
         parent = mui.getParent(),
         name = "newDialog",
         text = "Open Dialog",
-        width = 150,
-        height = 40,
+        width = 100,
+        height = 30,
         x = 70,
         y = 130,
         font = native.systemFont,
@@ -248,6 +304,30 @@ function scene:create( event )
         textColor = { 0.3, 0.3, 0.3 },
         textAlign = "center",
         value = 500,
+        state = {
+            value = "off",
+            off = {
+                textColor = {0.3, 0.3, 0.3},
+                -- svg = {
+                --     path = "ic_check_box_outline_blank_48px.svg",
+                --     fillColor = {0.3, 0.3, 0.3},
+                -- }
+            },
+            on = {
+                textColor = {.3, .3, .3},
+                -- svg = {
+                --     path = "ic_check_box_48px.svg",
+                --     fillColor = {0.3, 0.3, 0.3},
+                -- }
+            },
+            disabled = {
+                textColor = {1, 0, 0},
+                -- svg = {
+                --     path = "ic_check_box_48px.svg",
+                --     fillColor = {1, 0, 0},
+                -- }
+            }
+        },
         callBack = mui.actionForCheckbox
     })
 
@@ -264,6 +344,65 @@ function scene:create( event )
         backgroundColorOff = { 0.82, 0.95, 0.98, 1 },
         isChecked = true,
         value = 100, -- if switch is in the on position it's 100 else nil
+        state = {
+            value = "on"
+        },
+        handle = {
+            width = 40,
+            height = 40,
+            off = {
+                color = { 0.57, 0.85, 1, 1 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                --image = "knob-gfx.png",
+                -- svg = {
+                --     path = "simple-circle.svg"
+                -- }
+            },
+            on = {
+                color = { 0.25, 0.75, 1, 1 },
+                strokeColor = { 0.63, 0.81, 0.181 },
+                --image = "knob-gfx-on.png",
+                -- svg = {
+                --     path = "simple-circle.svg"
+                -- }
+            },
+            disabled = {
+                color = { .7,.7,.7   },
+                strokeColor = { .3,.3,.3 },
+                --image = "knob-gfx-disabled.png",
+                -- svg = {
+                --     path = "simple-circle.svg"
+                -- }
+            }
+        },
+        bar = {
+            width = 100,
+            height = 20,
+            off = {
+                color = { 0.82, 0.95, 0.98, 1 },
+                strokeColor = { 0.82, 0.95, 0.98, 1 },
+                -- image = "knob-gfx-base.png",
+                -- svg = {
+                --     path = "ic_radio_button_unchecked_48px.svg"
+                -- }
+            },
+            on = {
+                color = { 0.74, 0.88, 0.99, 1 },
+                strokeColor = { 0.74, 0.88, 0.99, 1 },
+                -- image = "knob-gfx-base.png",
+                -- svg = {
+                --     path = "ic_radio_button_unchecked_48px.svg"
+                -- }
+            },
+            disabled = {
+                color = { .5,.5,.5 },
+                strokeColor = { .5,.5,.5 },
+                -- image = "knob-gfx-base.png",
+                -- svg = {
+                --     path = "ic_radio_button_unchecked_48px.svg"
+                -- }
+            }
+        },
         callBack = mui.actionForSwitch
     })
 
@@ -318,6 +457,28 @@ function scene:create( event )
         font = mui.materialFont,
         textColor = { 1, 1, 1, 1 },
         fillColor = { 0.25, 0.75, 1, 1 },
+        state = {
+            off = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {0.25, 0.75, 1, 1},
+                    -- svg = {
+                    --     path = "ic_school_48px.svg",
+                    --     fillColor = {0, 0.81, 1},
+                    -- }
+                },
+            on = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {1, 0, 0, 1},
+                -- svg = {
+                --     path = "ic_help_48px.svg",
+                --     fillColor = {0, 0.81, 1},
+                -- }
+            },
+            disabled = {
+                textColor = {.3, .3, .3, 1},
+                fillColor = {0.3, 0.3, 0.3, 1}
+            }
+        },
         callBack = showDatePicker -- do not like wheel picker on native device.
     })
 
@@ -360,6 +521,28 @@ function scene:create( event )
         textColor = { 1, 1, 1, 1 },
         fillColor = { 0, 0.46, 1 },
         textAlign = "center",
+        state = {
+            off = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {0.25, 0.75, 1, 1},
+                    -- svg = {
+                    --     path = "ic_school_48px.svg",
+                    --     fillColor = {0, 0.81, 1},
+                    -- }
+                },
+            on = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {1, 0, 0, 1},
+                -- svg = {
+                --     path = "ic_help_48px.svg",
+                --     fillColor = {0, 0.81, 1},
+                -- }
+            },
+            disabled = {
+                textColor = {.3, .3, .3, 1},
+                fillColor = {0.3, 0.3, 0.3, 1}
+            }
+        },
         callBack = showTimePicker -- do not like wheel picker on native device.
     })
 
@@ -375,6 +558,28 @@ function scene:create( event )
         font = mui.materialFont,
         textColor = { 1, 1, 1, 1 },
         fillColor = { 0.25, 0.75, 1, 1 },
+        state = {
+            off = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {0.25, 0.75, 1, 1},
+                    -- svg = {
+                    --     path = "ic_school_48px.svg",
+                    --     fillColor = {0, 0.81, 1},
+                    -- }
+                },
+            on = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {1, 0, 0, 1},
+                -- svg = {
+                --     path = "ic_help_48px.svg",
+                --     fillColor = {0, 0.81, 1},
+                -- }
+            },
+            disabled = {
+                textColor = {.3, .3, .3, 1},
+                fillColor = {0.3, 0.3, 0.3, 1}
+            }
+        },
         callBack = mui.actionSwitchScene, -- do not like wheel picker on native device.
         callBackData = {
             sceneDestination = "tile",
@@ -464,9 +669,31 @@ function scene:create( event )
         y = 230,
         isFontIcon = true,
         font = mui.materialFont,
-        textColor = { 1, 1, 1, 1 },
+        textColor = { 1, 1, 0, 1 },
         fillColor = { 0, 0.46, 1 },
         textAlign = "center",
+        state = {
+            off = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {0.25, 0.75, 1, 1},
+                    -- svg = {
+                    --     path = "ic_school_48px.svg",
+                    --     fillColor = {0, 0.81, 1},
+                    -- }
+                },
+            on = {
+                textColor = {1, 1, 1, 1},
+                fillColor = {1, 0, 0, 1},
+                -- svg = {
+                --     path = "ic_help_48px.svg",
+                --     fillColor = {0, 0.81, 1},
+                -- }
+            },
+            disabled = {
+                textColor = {.3, .3, .3, 1},
+                fillColor = {0.3, 0.3, 0.3, 1}
+            }
+        },
         callBack = showSlidePanel -- do not like wheel picker on native device.
     })
 
@@ -500,13 +727,21 @@ function scene:create( event )
         text = "local_cafe",
         width = 30,
         height = 30,
-        x = muiData.safeAreaWidth - 150,
-        y = 200,
+        x = muiData.safeAreaWidth*0.75,
+        y = muiData.safeAreaHeight/2 + 50,
         isFontIcon = true,
         font = mui.materialFont,
         textColor = { 0, 0, 0, 1 },
         fillColor = { 0, 0.46, 1 },
         textAlign = "center",
+        state = {           
+            off = {
+                textColor = { 1, 0, 1 }
+            },
+            on = {
+                textColor = { 1, 1, 1 }
+            }
+        },
         callBack = showSnackBar
     })
 
@@ -546,13 +781,21 @@ function scene:create( event )
         text = "more_vert",
         width = 30,
         height = 30,
-        x = muiData.safeAreaWidth - 50,
-        y = 200,
+        x = muiData.safeAreaWidth*0.75 + 60,
+        y = muiData.safeAreaHeight/2 + 50,
         isFontIcon = true,
         font = mui.materialFont,
         textColor = { 0, 0, 0, 1 },
         fillColor = { 0, 0.46, 1 },
         textAlign = "center",
+        state = {
+            off = {
+                textColor = { 0, 1, 1 }
+            },
+            on = {
+                textColor = { 1, 1, 1 }
+            }
+        },
         callBack = showPopover
     })
 
@@ -560,12 +803,12 @@ function scene:create( event )
     mui.newTableView({
         parent = mui.getParent(),
         name = "tableview_demo",
-        width = 180,
-        height = 100,
-        top = 10,
-        left = muiData.safeAreaWidth - 190,
+        width = muiData.safeAreaWidth*0.4,
+        height = muiData.safeAreaHeight * 0.4,
+        top = 20,
+        left = muiData.safeAreaWidth/2 ,
         font = native.systemFont,
-        fontSize = 8,
+        fontSize = 12,
         textColor = { 0, 0, 0, 1 },
         lineColor = { 1, 1, 1, 1 },
         lineHeight = 2,
@@ -652,8 +895,8 @@ function scene:create( event )
         name = "progressbar_demo",
         width = 150,
         height = 4,
-        x = muiData.safeAreaWidth - 180,
-        y = 160,
+        x = muiData.safeAreaWidth/2 + 150/2,
+        y = muiData.safeAreaHeight/2 + 20,
         foregroundColor = { 0, 0.78, 1, 1 },
         backgroundColor = { 0.82, 0.95, 0.98, 0.8 },
         startPercent = 20,
@@ -697,11 +940,235 @@ function scene:create( event )
         sliderColor = { 1, 1, 1 },
         list = {
             -- note use iconImage="<filename of jpg/png>" for custom graphic icons
-            { key = "Home", value = "1", icon="home", labelText="Home", isActive = true, iconColor = { 1, 1, 1 }, iconColorOff = { 0,0,0,1 } },
-            { key = "Newsroom", value = "2", icon="new_releases", labelText="News", isActive = false, iconColor = { 1, 1, 1 }, iconColorOff = { 0,0,0,1 } },
-            { key = "Location", value = "3", icon="location_searching", labelText="Location", isActive = false },
-            { key = "To-do", value = "4", icon="view_list", labelText="To-do", isActive = false },
-            -- { key = "Viewer", value = "4", labelText="View", isActive = false } -- uncomment to see View as text
+            { 
+                key = "Home", 
+                value = "1", 
+                icon="home", 
+                --labelText="Home", 
+                isActive = true, 
+                iconImageOn = nil,
+                state = {
+                    value = "on",
+                    off = {
+                        textColor = { 1,1,1,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,1,1,1 },
+                        -- svg = {
+                        --     path = "ic_home_48px.svg",
+                        -- }
+                    },
+                    on = {
+                        textColor = { 1,0,0,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,0,0,1 },
+                        -- svg = {
+                        --     path = "ic_home_48px.svg",
+                        -- }
+                    },
+                    disabled = {
+                        textColor = { .7,.7,.7,1 },
+                        strokeColor = { .7,.7,.7,1 },
+                        labelColor = { .7,.7,.7,1 },
+                        -- svg = {
+                        --     path = "ic_home_48px.svg",
+                        -- }
+                    },
+                    image = {
+                        src = "if-hi-1024.png", -- source image file
+                        -- Below is optional if you have buttons on a sheet
+                        -- The 'sheetOptions' is directly from Corona sheets
+                        sheetIndex = 1, -- which frame to show for image from sheet
+                        touchIndex = 2, -- which frame to show for touch event
+                        disabledIndex = -1, -- which frame to show when disabled
+                        touchFadeAnimation = true, -- helpful with shadows
+                        touchFadeAnimationSpeedOut = 500,
+                        sheetOptions = {
+                            -- The params below are required by Corona
+
+                            width = 512,
+                            height = 512,
+                            numFrames = 2,
+
+                            -- The params below are optional (used for dynamic image sheet selection)
+
+                            sheetContentWidth = 1024,  -- width of original 1x size of entire sheet
+                            sheetContentHeight = 512  -- height of original 1x size of entire sheet
+
+                        }
+                    }
+                }
+            },
+            { 
+                key = "Newsroom",
+                value = "2",
+                icon="new_releases",
+                --labelText="News",
+                isActive = false,
+                state = {
+                    off = {
+                        textColor = { 1,1,1,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,1,1,1 },
+                        xsvg = {
+                            path = "ic_new_releases_48px.svg",
+                        }
+                    },
+                    on = {
+                        textColor = { 1,0,0,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,0,0,1 },
+                        xsvg = {
+                            path = "ic_new_releases_48px.svg",
+                        }
+                    },
+                    disabled = {
+                        textColor = { .7,.7,.7,1 },
+                        strokeColor = { .7,.7,.7,1 },
+                        labelColor = { .7,.7,.7,1 },
+                        xsvg = {
+                            path = "ic_new_releases_48px.svg",
+                        }
+                    },
+                    image = {
+                        src = "if-vimeo-1024.png", -- source image file
+                        -- Below is optional if you have buttons on a sheet
+                        -- The 'sheetOptions' is directly from Corona sheets
+                        sheetIndex = 1, -- which frame to show for image from sheet
+                        touchIndex = 2, -- which frame to show for touch event
+                        disabledIndex = -1, -- which frame to show when disabled
+                        touchFadeAnimation = true, -- helpful with shadows
+                        touchFadeAnimationSpeedOut = 500,
+                        sheetOptions = {
+                            -- The params below are required by Corona
+
+                            width = 512,
+                            height = 512,
+                            numFrames = 2,
+
+                            -- The params below are optional (used for dynamic image sheet selection)
+
+                            sheetContentWidth = 1024,  -- width of original 1x size of entire sheet
+                            sheetContentHeight = 512  -- height of original 1x size of entire sheet
+
+                        }
+                    }
+                }
+            },
+            { 
+                key = "Location",
+                value = "3",
+                icon="location_searching",
+                --labelText="Location",
+                isActive = false,
+                state = {
+                    off = {
+                        textColor = { 1,1,1,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,1,1,1 },
+                        xsvg = {
+                            path = "ic_location_searching_48px.svg",
+                        }
+                    },
+                    on = {
+                        textColor = { 1,0,0,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,0,0,1 },
+                        xsvg = {
+                            path = "ic_location_searching_48px.svg",
+                        }
+                    },
+                    disabled = {
+                        textColor = { .7,.7,.7,1 },
+                        strokeColor = { .7,.7,.7,1 },
+                        labelColor = { .7,.7,.7,1 },
+                        xsvg = {
+                            path = "ic_location_searching_48px.svg",
+                        }
+                    },
+                    image = {
+                        src = "if-twitter-1024.png", -- source image file
+                        -- Below is optional if you have buttons on a sheet
+                        -- The 'sheetOptions' is directly from Corona sheets
+                        sheetIndex = 1, -- which frame to show for image from sheet
+                        touchIndex = 2, -- which frame to show for touch event
+                        disabledIndex = -1, -- which frame to show when disabled
+                        touchFadeAnimation = true, -- helpful with shadows
+                        touchFadeAnimationSpeedOut = 500,
+                        sheetOptions = {
+                            -- The params below are required by Corona
+
+                            width = 512,
+                            height = 512,
+                            numFrames = 2,
+
+                            -- The params below are optional (used for dynamic image sheet selection)
+
+                            sheetContentWidth = 1024,  -- width of original 1x size of entire sheet
+                            sheetContentHeight = 512  -- height of original 1x size of entire sheet
+
+                        }
+                    }
+                }
+            },
+            { 
+                key = "To-do",
+                value = "4",
+                icon="view_list",
+                --labelText="To-do",
+                isActive = false,
+                state = {
+                    value = "off",
+                    off = {
+                        textColor = { 1,1,1,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,1,1,1 },
+                        xsvg = {
+                            path = "ic_view_list_48px.svg",
+                        }
+                    },
+                    on = {
+                        textColor = { 1,0,0,1 },
+                        strokeColor = { .3,.3,.3,1 },
+                        labelColor = { 1,0,0,1 },
+                        xsvg = {
+                            path = "ic_view_list_48px.svg",
+                        }
+                    },
+                    disabled = {
+                        textColor = { .7,.7,.7,1 },
+                        strokeColor = { .7,.7,.7,1 },
+                        labelColor = { .7,.7,.7,1 },
+                        xsvg = {
+                            path = "ic_view_list_48px.svg",
+                        }
+                    },
+                    image = {
+                        src = "if-yahoo-1024.png", -- source image file
+                        -- Below is optional if you have buttons on a sheet
+                        -- The 'sheetOptions' is directly from Corona sheets
+                        sheetIndex = 1, -- which frame to show for image from sheet
+                        touchIndex = 2, -- which frame to show for touch event
+                        disabledIndex = -1, -- which frame to show when disabled
+                        touchFadeAnimation = true, -- helpful with shadows
+                        touchFadeAnimationSpeedOut = 500,
+                        sheetOptions = {
+                            -- The params below are required by Corona
+
+                            width = 512,
+                            height = 512,
+                            numFrames = 2,
+
+                            -- The params below are optional (used for dynamic image sheet selection)
+
+                            sheetContentWidth = 1024,  -- width of original 1x size of entire sheet
+                            sheetContentHeight = 512  -- height of original 1x size of entire sheet
+
+                        }
+                    }
+                }
+            },
+        
+        
         }
     })
     --]]--

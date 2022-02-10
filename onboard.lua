@@ -30,7 +30,7 @@ function scene:create( event )
 
 	local sceneGroup = self.view
 
-    mui.init()
+    mui.init(nil, {parent = self.view, useSvg = true})
 
     -- Gather insets (function returns these in the order of top, left, bottom, right)
     local topInset, leftInset, bottomInset, rightInset = mui.getSafeAreaInsets()
@@ -213,6 +213,14 @@ function scene:create( event )
         font = mui.materialFont,
         textColor = { 0, 0, 0 },
         textAlign = "center",
+        state = {
+            off = {
+                textColor = { 1, 0, 1 }
+            },
+            on = {
+                textColor = { 1, 0, 1 }
+            }
+        },
         callBack = forwardHandler,
         callBackData = slideConfig
     })

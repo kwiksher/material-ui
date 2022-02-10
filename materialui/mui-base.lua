@@ -918,7 +918,7 @@ function M.transitionCircleSwitch(params)
             M.finalActionForSwitchScene({callBackData=callBackData})
         end
     end
-
+    muiData.sceneData[MySceneName].circleSceneSwitch.runFunc = circleSceneSwitchAnimFunc
     M.showInsetOverlay()
     M.toFrontSafeArea()
 

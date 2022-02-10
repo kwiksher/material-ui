@@ -257,9 +257,9 @@ function M.removeNavBar(widgetName)
         muiData.widgetDict[widgetName]["rect"]:removeSelf()
         muiData.widgetDict[widgetName]["rect"] = nil
     end
-    if muiData.widgetDict[options.name]["background"] ~= nil then
-        muiData.widgetDict[options.name]["background"]:removeSelf()
-        muiData.widgetDict[options.name]["background"] = nil
+    if muiData.widgetDict[widgetName]["background"] ~= nil then
+        muiData.widgetDict[widgetName]["background"]:removeSelf()
+        muiData.widgetDict[widgetName]["background"] = nil
     end
     if muiData.widgetDict[widgetName]["container"] ~= nil then
         muiData.widgetDict[widgetName]["container"]:removeSelf()
